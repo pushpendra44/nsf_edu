@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.11
+# v0.19.9
 
 using Markdown
 using InteractiveUtils
@@ -127,6 +127,56 @@ begin
 	plot!(xlims=(0,10),ylims=(0,60))
 end
 
+# ╔═╡ 2b4c8d2a-c630-4880-b159-c688e807a7cb
+md"The equation for above graph is $-2p_1^2 +20p_1$."
+
+# ╔═╡ 1e2c2cf3-0203-41ad-b77b-e4299f05699d
+md"The above expression is a quadratic function, which in our case represents the profit made by our firm. So we can write this as $Profit = -2p_1^2 +20p_1$."
+
+# ╔═╡ ebc960a0-ef78-400a-acfe-beff3c29f1ea
+md"Now let us assume that the other firm has already set their price $p_2 =5$. Given that, how much should you set your price $p_1$ to, so that your profit is 40." 
+
+# ╔═╡ cbd49c5b-30b6-4cdd-9579-b12ebb1ea452
+md"This can be done by solving the following quadratic equation for $p_1$: $Profit = -2p_1^2 +20p_1$."
+
+# ╔═╡ 24f81d5d-65dc-4c3c-8774-0d07c60b3425
+md"We can re-write the above quation as: $2p_1^2 -20p_1 +Profit =0$."
+
+# ╔═╡ 8e04136d-5730-486f-8af6-bcbdd27dacce
+#defining our price quadratic terms
+begin
+	cof_a= 2; 
+	cof_b= -20;
+end;
+
+# ╔═╡ e13baa1b-8673-4604-b9b1-81f2c0065c62
+@bind prof Slider(10:5:50,default=40)
+
+# ╔═╡ a9a1aa52-a1e0-4138-b319-ca0d5e396ec1
+md" $$Profit=$$ $(prof)"
+
+# ╔═╡ 59b96ff3-da67-44c4-963b-2c60a41c7c41
+#price p1 function
+function price(profit, cof_a, cof_b)
+	return (-(cof_b) .+sqrt.((cof_b)^2 .-(4*cof_a .*profit))) ./(2*cof_a) 
+end;
+
+# ╔═╡ 4b527b18-b936-4531-967c-53026d5466bb
+md" $$p_1=$$ $(price(prof,2,-20))"
+
+# ╔═╡ 71d7b135-1416-4a81-b7bf-42a2084f28a3
+#compute price vector
+begin
+	prof_x = 10:5:50
+	price_cal = price(prof_x, cof_a, cof_b)
+end;
+
+# ╔═╡ a8dc8a6d-da26-460c-ad79-5abcbaa83fd4
+begin
+	plot(prof_x,price_cal,title="The Price You Charge Per Widget vs. Your Profits - in Dollars",legend=false)
+	plot!(xlims=(0,60),ylims=(0,10))
+end
+
 # ╔═╡ 25379002-3be5-11eb-28e7-35c7828f0b03
 md""" ### Function Library and Dependencies"""
 
@@ -156,29 +206,41 @@ plotly();
 # ╔═╡ Cell order:
 # ╟─5583c650-28f5-11eb-3014-81692bc247a8
 # ╟─51d0afc0-28fd-11eb-2b63-53e23d9755bd
-# ╟─efa32c10-28fc-11eb-0f2e-13eef13572fd
-# ╟─60c46850-2902-11eb-0acd-33c703ce2e24
-# ╟─ef20f2d2-2b64-11eb-0e3f-8be6958ab3db
-# ╟─360039f0-2902-11eb-03ab-c72d4a43a39e
-# ╟─13638050-2907-11eb-00d8-7990376cdbd2
-# ╟─cd06bd90-2922-11eb-0348-fd41bf483c07
+# ╠═efa32c10-28fc-11eb-0f2e-13eef13572fd
+# ╠═60c46850-2902-11eb-0acd-33c703ce2e24
+# ╠═ef20f2d2-2b64-11eb-0e3f-8be6958ab3db
+# ╠═360039f0-2902-11eb-03ab-c72d4a43a39e
+# ╠═13638050-2907-11eb-00d8-7990376cdbd2
+# ╠═cd06bd90-2922-11eb-0348-fd41bf483c07
 # ╟─94849422-2b65-11eb-349a-299e4462a479
-# ╟─63489f30-2923-11eb-0d71-ed07ae0502a5
+# ╠═63489f30-2923-11eb-0d71-ed07ae0502a5
 # ╟─9bdcecae-2933-11eb-01f9-b752cfa9b383
 # ╟─d31ac530-2933-11eb-180f-dda8d96989be
 # ╟─130d779e-2934-11eb-30f9-07aa74fbf031
 # ╟─f053711e-3661-11eb-310f-dfa02c634d60
 # ╟─4b6afa22-2b67-11eb-2988-19374acc17e5
 # ╟─48a810f0-2b64-11eb-3359-357168fcaf81
-# ╟─e9dd9c20-2b68-11eb-0ff5-2bb89d25d440
-# ╟─182aa320-2b69-11eb-318f-111c47f097cf
-# ╟─5e47db20-2b69-11eb-1728-19dcfb42a6e3
+# ╠═e9dd9c20-2b68-11eb-0ff5-2bb89d25d440
+# ╠═182aa320-2b69-11eb-318f-111c47f097cf
+# ╠═5e47db20-2b69-11eb-1728-19dcfb42a6e3
 # ╟─da57a6f0-2b69-11eb-0222-b7e10b1ee072
+# ╠═2b4c8d2a-c630-4880-b159-c688e807a7cb
+# ╠═1e2c2cf3-0203-41ad-b77b-e4299f05699d
+# ╠═ebc960a0-ef78-400a-acfe-beff3c29f1ea
+# ╠═cbd49c5b-30b6-4cdd-9579-b12ebb1ea452
+# ╠═24f81d5d-65dc-4c3c-8774-0d07c60b3425
+# ╠═8e04136d-5730-486f-8af6-bcbdd27dacce
+# ╠═e13baa1b-8673-4604-b9b1-81f2c0065c62
+# ╠═a9a1aa52-a1e0-4138-b319-ca0d5e396ec1
+# ╠═4b527b18-b936-4531-967c-53026d5466bb
+# ╠═59b96ff3-da67-44c4-963b-2c60a41c7c41
+# ╠═71d7b135-1416-4a81-b7bf-42a2084f28a3
+# ╟─a8dc8a6d-da26-460c-ad79-5abcbaa83fd4
 # ╟─25379002-3be5-11eb-28e7-35c7828f0b03
-# ╟─2fd16772-292a-11eb-00dd-2d5cfc02738f
-# ╟─363db0ee-292a-11eb-01fd-bf502e702f62
-# ╟─46c457d0-292a-11eb-3384-07fec48a0c4c
-# ╟─48dd4cc0-292a-11eb-12a7-93530ba75030
-# ╟─ce513430-28fc-11eb-0def-67b283cedb41
-# ╟─653c8d80-2903-11eb-14c3-b52dd37a0111
+# ╠═2fd16772-292a-11eb-00dd-2d5cfc02738f
+# ╠═363db0ee-292a-11eb-01fd-bf502e702f62
+# ╠═46c457d0-292a-11eb-3384-07fec48a0c4c
+# ╠═48dd4cc0-292a-11eb-12a7-93530ba75030
+# ╠═ce513430-28fc-11eb-0def-67b283cedb41
+# ╠═653c8d80-2903-11eb-14c3-b52dd37a0111
 # ╟─d4c21190-28fc-11eb-1bdc-23a173871c11
